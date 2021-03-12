@@ -258,6 +258,11 @@ export class TreeChecklistExample {
     const nestedNode = this.flatNodeMap.get(node);
     this._database.updateItem(nestedNode!, itemValue);
   }
+
+  /** Print flat node map */
+  printFlatMap() {
+    console.log(this.checklistSelection.selected);
+  }
 }
 
 

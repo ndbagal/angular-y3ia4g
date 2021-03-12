@@ -1,9 +1,8 @@
 <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
   <mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle matTreeNodePadding>
     <button mat-icon-button disabled></button>
-    <mat-checkbox class="checklist-leaf-node"
-                  [checked]="checklistSelection.isSelected(node)"
-                  (change)="todoLeafItemSelectionToggle(node)">{{node.item}}</mat-checkbox>
+    <mat-checkbox class="checklist-leaf-node" [checked]="checklistSelection.isSelected(node)"
+      (change)="todoLeafItemSelectionToggle(node)">{{node.item}}</mat-checkbox>
   </mat-tree-node>
 
   <mat-tree-node *matTreeNodeDef="let node; when: hasNoContent" matTreeNodePadding>
@@ -16,19 +15,22 @@
   </mat-tree-node>
 
   <mat-tree-node *matTreeNodeDef="let node; when: hasChild" matTreeNodePadding>
-    <button mat-icon-button matTreeNodeToggle
-            [attr.aria-label]="'Toggle ' + node.item">
+    <button mat-icon-button matTreeNodeToggle [attr.aria-label]="'Toggle ' + node.item">
       <mat-icon class="mat-icon-rtl-mirror">
         {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
       </mat-icon>
     </button>
-    <mat-checkbox [checked]="descendantsAllSelected(node)"
-                  [indeterminate]="descendantsPartiallySelected(node)"
-                  (change)="todoItemSelectionToggle(node)">{{node.item}}</mat-checkbox>
-    <button mat-icon-button (click)="addNewItem(node)"><mat-icon>add</mat-icon></button>
+    <mat-checkbox [checked]="descendantsAllSelected(node)" [indeterminate]="descendantsPartiallySelected(node)"
+      (change)="todoItemSelectionToggle(node)">{{node.item}}</mat-checkbox>
+    <button mat-icon-button (click)="addNewItem(node)">
+      <mat-icon>add</mat-icon>
+    </button>
   </mat-tree-node>
 </mat-tree>
 
+<mat-list style="background-color: antiquewhite;" *ngIf="checklistSelection.selected.length > 0">
+  <mat-list-item *ngFor="let item of checklistSelection.selected; let i = index">{{i+1}}) {{item.item}}</mat-list-item>
+</mat-list>
 
 <!-- Copyright 2020 Google LLC. All Rights Reserved.
     Use of this source code is governed by an MIT-style license that
